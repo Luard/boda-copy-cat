@@ -6,7 +6,7 @@ export default defineConfig({
     site: 'http://elbodorrio2025.com',
     i18n: {
         locales: ['es', 'ca'],
-        defaultLocale: 'es',
+        defaultLocale: 'ca',
         routing: {
             prefixDefaultLocale: false,
             redirectToDefaultLocale: true,
