@@ -22,7 +22,6 @@ jobs:
         run: |
           git clone https://x-access-token:${{ secrets.TARGET_REPO_TOKEN }}@github.com/Luard/boda-copy-cat.git target-repo
           rsync -av --delete --exclude='.git' ./ target-repo/
-          rsync -av --delete --exclude='.git' --exclude='CNAME' --exclude='astro.config.mjs' --exclude='.github/workflows/sync-to-other-repo.yml' ./ target-repo/
           cd target-repo
           git add .
           git commit -m "Sync from repo A" || echo "No changes to commit"
