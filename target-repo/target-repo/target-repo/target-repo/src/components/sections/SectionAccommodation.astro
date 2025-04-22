@@ -1,0 +1,133 @@
+---
+import { translations } from '../../i18n/translations';
+
+type SupportedLanguages = keyof typeof translations;
+const { lang = 'es' } = Astro.props;
+const t = translations[lang as SupportedLanguages];
+---
+
+<section class="section-notes">
+  <div class="content fade-in">
+    <h2>{t['accommodation.title'] || '¿ Necesitas alojamiento ?' }</h2>
+    <div class="info-card">
+      <div class="info-message">
+        <a href="https://hoteltorresmanlleu.com/" target="_blank">
+          <p class="message-text">
+            Hotel Torres Manlleu: 938833112
+          </p>
+        </a>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-message">
+        <a href="https://hotelvalldebas.cat/es/home-es/" target="_blank">
+          <p class="message-text">
+            Hotel Vall de Bas: 972690101
+          </p>
+        </a>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-message">
+        <a href="https://lesclarisses.com/" target="_blank">
+          <p class="message-text">
+            Les Clarises: 936606000
+          </p>
+        </a>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-message">
+        <a href="https://www.lapau.net/es" target="_blank">
+          <p class="message-text">
+            Estança la Pau: 607658951
+          </p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: var(--secondary-color);
+    text-align: center;
+  }
+
+  .section-notes {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .info-card {
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .info-message {
+  }
+
+  .message-text {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #333;
+    font-family: 'Italiana', serif;
+  }
+
+  .divider {
+    width: 100%;
+    height: 30px;
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .divider svg {
+    width: 80%;
+    height: 100%;
+  }
+
+  .allergy-icons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .icon-image {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .allergy-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  @media (max-width: 768px) {
+    .section-others{
+      height: 100vh;
+      overflow: hidden;
+    }
+    .message-text {
+      font-size: 1.2rem;
+    }
+
+    .allergy-icon {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .divider svg {
+      width: 100%;
+    }
+  }
+</style>
