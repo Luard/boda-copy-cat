@@ -31,7 +31,7 @@ export const translations = {
     'rsvp.name.label': 'Nombre',
     'rsvp.surname.label': 'Apellidos',
     // Intro Section
-    "intro.invitation": "Con mucha ilusión, queremos compartir con ustedes este día tan especial en nuestras vidas. Los invitamos a celebrar nuestro amor y a ser testigos del inicio de esta nueva etapa juntos. Su presencia hará de nuestra boda un momento aún más mágico. ¡Los esperamos con mucho cariño!",
+    "intro.invitation": "Con mucha ilusión, queremos compartir con ustedes este día tan especial en nuestras vidas. Los invitamos a celebrar nuestro amor y a ser testigos del inicio de esta nueva etapa juntos.\nSu presencia hará de nuestra boda un momento aún más mágico. ¡Los esperamos con mucho cariño!",
     "intro.countdown.heading": "Prepárate, faltan...",
     "intro.countdown.days": "DÍAS",
     "intro.countdown.hours": "HORAS",
@@ -97,7 +97,7 @@ export const translations = {
     'rsvp.name.label': 'Nom',
     'rsvp.surname.label': 'Cognoms',
     // Intro Section
-    "intro.invitation": "Amb molta il·lusió, volem compartir amb vosaltres aquest dia tan especial a les nostres vides. Us convidem a celebrar el nostre amor i a ser testimonis de l'inici d'aquesta nova etapa junts. La vostra presència farà del nostre casament un moment encara más màgic. Us esperem amb molt d'afecte!",
+    "intro.invitation": "Amb molta il·lusió, volem compartir amb vosaltres aquest dia tan especial a les nostres vides. Us convidem a celebrar el nostre amor i a ser testimonis de l'inici d'aquesta nova etapa junts.\nLa vostra presència farà del nostre casament un moment encara más màgic. Us esperem amb molt d'afecte!",
     "intro.countdown.heading": "Prepara't, falten...",
     "intro.countdown.days": "DIES",
     "intro.countdown.hours": "HORES",
