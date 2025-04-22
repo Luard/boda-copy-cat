@@ -1,0 +1,163 @@
+---
+import { translations } from '../../i18n/translations';
+
+type SupportedLanguages = keyof typeof translations;
+const { lang = 'es' } = Astro.props;
+const t = translations[lang as SupportedLanguages];
+---
+
+<section class="section-schedule">
+  <div class="content fade-in">
+    <h2>{t['schedule.title']}</h2>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3 class="event-time">17:30</h3>
+          <div class="event-details">
+            <h4 class="event-title">{t['schedule.ceremony.title']}</h4>
+            <p class="event-description">{t['schedule.ceremony.description']}</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3 class="event-time">19:30</h3>
+          <div class="event-details">
+            <h4 class="event-title">{t['schedule.cocktail.title']}</h4>
+            <p class="event-description">{t['schedule.cocktail.description']}</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3 class="event-time">23:00</h3>
+          <div class="event-details">
+            <h4 class="event-title">{t['schedule.party.title']}</h4>
+            <p class="event-description">{t['schedule.party.description']}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-schedule {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  h2 {
+    margin-top: 1rem;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+    text-align: center;
+  }
+
+  .timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 120px;
+    width: 2px;
+    background-color: var(--primary-color);
+    opacity: 0.3;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-content {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .event-time {
+    width: 120px;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-align: right;
+    padding-right: 2rem;
+    flex-shrink: 0;
+  }
+
+  .event-details {
+    position: relative;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-left: 2rem;
+    flex-grow: 1;
+  }
+
+  .event-details::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+  }
+
+  .event-title {
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .event-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+  }
+
+  @media (max-width: 768px) {
+    .timeline::before {
+      left: 60px;
+    }
+
+    .event-time {
+      width: 60px;
+      font-size: 1.2rem;
+      padding-right: 1rem;
+    }
+
+    .event-details {
+      margin-left: 1.5rem;
+      padding: 1rem;
+    }
+
+    .event-title {
+      font-size: 1rem;
+    }
+
+    .event-description {
+      font-size: 0.9rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+</style>

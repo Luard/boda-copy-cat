@@ -3,6 +3,8 @@ export const languages = {
   ca: 'Català'
 };
 
+export const defaultLang = 'es';
+
 export const translations = {
   es: {
     'meta.title':'Boda Luard y Nataly',
@@ -31,7 +33,7 @@ export const translations = {
     'rsvp.name.label': 'Nombre',
     'rsvp.surname.label': 'Apellidos',
     // Intro Section
-    "intro.invitation": "Con mucha ilusión, queremos compartir con ustedes este día tan especial en nuestras vidas. Los invitamos a celebrar nuestro amor y a ser testigos del inicio de esta nueva etapa juntos.\nSu presencia hará de nuestra boda un momento aún más mágico. ¡Los esperamos con mucho cariño!",
+    "intro.invitation": "Con mucha ilusión, queremos compartir con ustedes este día tan especial en nuestras vidas. Los invitamos a celebrar nuestro amor y a ser testigos del inicio de esta nueva etapa juntos. Su presencia hará de nuestra boda un momento aún más mágico. ¡Los esperamos con mucho cariño!",
     "intro.countdown.heading": "Prepárate, faltan...",
     "intro.countdown.days": "DÍAS",
     "intro.countdown.hours": "HORAS",
@@ -68,6 +70,7 @@ export const translations = {
     "others.allergens.alt": "Alergias",
     "accommodation.title": "¿ Necesitas alojamiento ?",
     "calendar.appointment": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bodorrio%202025:%20Luard%20y%20Nataly&dates=20250911T173000/20250912T030000&location=Masia%20Piguillem,%20Carretera%20C-37,%20km.%20163,%2008572%20Sant%20Andreu%20de%20la%20Vola,%20Barcelona&details=¡Te%20esperamos%20en%20nuestra%20boda!",
+      // Add these to your Spanish translations
     "rsvp.deadline": "Agradeceríamos confirmación de asistencia antes del 1 de Julio.",
   },
   ca: {
@@ -97,7 +100,7 @@ export const translations = {
     'rsvp.name.label': 'Nom',
     'rsvp.surname.label': 'Cognoms',
     // Intro Section
-    "intro.invitation": "Amb molta il·lusió, volem compartir amb vosaltres aquest dia tan especial a les nostres vides. Us convidem a celebrar el nostre amor i a ser testimonis de l'inici d'aquesta nova etapa junts.\nLa vostra presència farà del nostre casament un moment encara más màgic. Us esperem amb molt d'afecte!",
+    "intro.invitation": "Amb molta il·lusió, volem compartir amb vosaltres aquest dia tan especial a les nostres vides. Us convidem a celebrar el nostre amor i a ser testimonis de l'inici d'aquesta nova etapa junts. La vostra presència farà del nostre casament un moment encara más màgic. Us esperem amb molt d'afecte!",
     "intro.countdown.heading": "Prepara't, falten...",
     "intro.countdown.days": "DIES",
     "intro.countdown.hours": "HORES",
@@ -134,6 +137,8 @@ export const translations = {
     "others.allergens.alt": "Al·lèrgies",
     "accommodation.title": "Necessites allotjament ?",
     "calendar.appointment": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bodorrio%202025:%20Luard%20i%20Nataly&dates=20250911T173000/20250912T030000&location=Masia%20Piguillem,%20Carretera%20C-37,%20km.%20163,%2008572%20Sant%20Andreu%20de%20la%20Vola,%20Barcelona&details=T'esperem%20a%20la%20nostra%20boda!",
-    "rsvp.deadline": "Agrairíem confirmació d'assistència abans de l'1 de Juliol.",
+  
+  // Add these to your Catalan translations
+  "rsvp.deadline": "Agrairíem confirmació d'assistència abans de l'1 de Juliol.",
   }
 };
