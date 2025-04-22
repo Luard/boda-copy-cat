@@ -1,0 +1,800 @@
+---
+import Navigation from '../components/Navigation.astro';
+import { translations } from '../i18n/translations';
+
+type SupportedLanguages = keyof typeof translations;
+const { lang = 'es' } = Astro.props;
+const t = translations[lang as SupportedLanguages];
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuestra Boda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="envelope-container" class="envelope-container">
+      <div class="envelope">
+        <div class="envelope-flap" />
+        <div class="envelope-flap-shadow" />
+        <div class="envelope-inside">
+          <div id="envelope-content-preview" class="envelope-content-preview">
+            <Navigation lang={lang}/>
+            <slot />
+          </div>
+        </div>
+        <div class="envelope-seal" id="envelope-seal">
+          <div class="seal-content">L&N</div>
+        </div>
+
+        <div class="envelope-outside" />
+        
+        <!--
+        <div class="envelope-content">
+          <h1>{t.invitation || 'Nuestra Boda'}</h1>
+          <p>{t.clickToOpen || 'Haz click para abrir'}</p>
+        </div>
+         -->
+      </div>
+    </div>
+    <div id="invitation-content" class="invitation-content hidden">
+      <Navigation lang={lang}/>
+      <slot />
+    </div>
+  </body>
+</html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const envelope = document.querySelector('.envelope');
+    const envelopeContainer = document.getElementById('envelope-container');
+    const invitationContent = document.getElementById('invitation-content');
+    const envelopeContentPreview = document.getElementById('envelope-content-preview');
+    const envelopeInside = document.querySelector('.envelope-inside');
+    const envelopeSeal = document.getElementById('envelope-seal');
+    
+    // Ensure content is initially hidden
+    if (envelopeContentPreview) {
+      envelopeContentPreview.style.opacity = '0';
+    }
+    
+    // Add subtle animation to the seal to draw attention
+    if (envelopeSeal) {
+      setTimeout(() => {
+        envelopeSeal.classList.add('pulse');
+        setTimeout(() => {
+          envelopeSeal.classList.remove('pulse');
+        }, 1000);
+      }, 1500);
+    }
+
+    // Make only the seal clickable
+    envelope.style.pointerEvents = 'none';
+    if (envelopeSeal) {
+      envelopeSeal.style.pointerEvents = 'auto';
+      envelopeSeal.style.cursor = 'pointer';
+      
+      envelopeSeal.addEventListener('click', () => {
+        // Disable pointer events during animation
+        envelopeSeal.style.pointerEvents = 'none';
+        
+        // Añadir efecto de "crack" al sello cuando se hace clic
+        envelopeSeal.style.transition = 'all 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97)';
+        envelopeSeal.style.transform = 'translate(-50%, -50%) scale(0.95) rotate(5deg)';
+        
+        // Añadir efecto de "brillo" al romper el sello
+        setTimeout(() => {
+          envelopeSeal.style.boxShadow = '0 0 30px rgba(255, 100, 100, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.8)';
+          
+          // Use a small timeout to ensure browser has time to process
+          setTimeout(() => {
+            // First open the flap
+            envelope.classList.add('opening');
+            
+            // Gradually reveal content as flap opens
+            setTimeout(() => {
+              if (envelopeContentPreview) {
+                envelopeContentPreview.style.opacity = '0.3';
+              }
+              
+              // Ensure the inside element gets proper z-index
+              if (envelopeInside) {
+                envelopeInside.style.zIndex = '2';
+              }
+              
+              // Then pull out the content after flap opens
+              setTimeout(() => {
+                envelope.classList.add('open');
+                
+                // Increase z-index as content is pulled out
+                if (envelopeInside) {
+                  envelopeInside.style.zIndex = '4';
+                }
+                
+                // After animation completes, show the actual content
+                setTimeout(() => {
+                  if (envelopeContainer && invitationContent) {
+                    // Prepare for paper slide-in animation
+                    invitationContent.classList.remove('hidden');
+                    invitationContent.style.display = 'block';
+                    invitationContent.style.opacity = '0';
+                    invitationContent.style.transform = 'translateY(100%)';
+                    invitationContent.style.position = 'fixed';
+                    invitationContent.style.top = '0';
+                    invitationContent.style.left = '0';
+                    invitationContent.style.width = '100%';
+                    invitationContent.style.height = '100%';
+                    invitationContent.style.zIndex = '1001';
+                    invitationContent.style.transition = 'opacity 0.5s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1)';
+                    
+                    // Remove envelope with upward animation
+                    envelopeContainer.style.transition = 'transform 1s ease, opacity 0.8s ease';
+                    envelopeContainer.style.transform = 'translateY(-100%)';
+                    envelopeContainer.style.opacity = '0';
+                    
+                    // Short delay before sliding in the content from bottom
+                    setTimeout(() => {
+                      // Slide in the content from bottom with paper-like effect
+                      invitationContent.style.opacity = '1';
+                      invitationContent.style.transform = 'translateY(0)';
+                      invitationContent.classList.add('paper-effect');
+                      
+                      // Add staggered animation to child elements
+                      const children = invitationContent.children;
+                      for (let i = 0; i < children.length; i++) {
+                        children[i].style.setProperty('--delay', i);
+                      }
+                      
+                      // Remove the envelope container after animation completes
+                      setTimeout(() => {
+                        envelopeContainer.remove();
+                        
+                        // Reset to normal document flow after animation
+                        setTimeout(() => {
+                          invitationContent.style.position = 'static';
+                          invitationContent.style.height = 'auto';
+                          invitationContent.style.overflow = 'visible';
+                          document.body.style.overflow = 'auto';
+                          document.body.style.height = 'auto';
+                        }, 500);
+                      }, 800);
+                    }, 800);
+                  }
+                }, 2300);
+              }, 1500);
+            }, 700);
+          }, 50);
+        }, 300);
+      });
+    }
+  });
+</script>
+
+<style is:global>
+  :root {
+    --primary-color: #D4B996;
+    --secondary-color: #8B7355;
+    --text-color: #2C1810;
+    --background-color: #FFF8F0;
+    --envelope-color: #F5E9D9;
+    --envelope-border: #C9B18C;
+    --envelope-shadow: rgba(139, 115, 85, 0.3);
+    --seal-color: #8B0000;
+    --seal-shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  h1, h2 {
+    font-family: 'Better Saturday Personal Use', cursive;
+  }
+
+  /* Envelope Styles */
+  .envelope-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: linear-gradient(to bottom, #FFF8F0, #F5E9D9);
+    perspective: 2000px;
+    background-image: url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M81.28 88H68.413l19.298 19.298L81.28 88zm2.107 0h13.226L90 107.838 83.387 88zm15.334 0h12.866l-19.298 19.298L98.72 88zm-32.927-2.207L73.586 78h32.827l.5.5 7.294 7.293L115.414 87l-24.707 24.707-.707.707L64.586 87l1.207-1.207zm2.62.207L74 80.414 79.586 86H68.414l5.586-5.586zm16.706 0L89 80.414 94.586 86H83.414l5.586-5.586zm16.707 0L104 80.414 109.586 86H98.414l5.586-5.586z' fill='%23D4B996' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+
+  .envelope {
+    position: relative;
+    width: 50%;
+    max-width: 800px;
+    height: 40vh;
+    max-height: 600px;
+    background-color: var(--envelope-color);
+    border: 2px solid var(--envelope-border);
+    border-radius: 8px;
+    box-shadow: 0 15px 35px var(--envelope-shadow), inset 0 0 80px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    overflow: visible;
+    transition: transform 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+  }
+
+  /* Añadir media queries para dispositivos móviles */
+  @media (max-width: 768px) {
+    .envelope {
+      width: 85%;
+      height: 35vh;
+    }
+    
+    .envelope-seal {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .seal-content {
+      font-size: 1.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .envelope {
+      width: 90%;
+      height: 30vh;
+    }
+    
+    .envelope-seal {
+      width: 80px;
+      height: 80px;
+    }
+    
+    .seal-content {
+      font-size: 1.5rem;
+    }
+  }
+
+  .envelope::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid rgba(201, 177, 140, 0.3);
+    border-radius: 5px;
+    pointer-events: none;
+  }
+
+  .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background-color: #E5D9C9;
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+      border-bottom: 2px solid var(--envelope-border);
+      transform-origin: top;
+      transform: rotateX(0deg);
+      transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
+      z-index: 7;
+      transform-style: preserve-3d;
+      backface-visibility: visible;
+      background-image: 
+        linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent),
+        url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4b996' fill-opacity='0.15'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      
+    }
+    .envelope-flap-shadow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      clip-path: polygon(100% 0, 100% 5%, 50% 105%, 0 5%, 0 0);
+      transform-origin: top;
+      transition: transform 2.5s cubic-bezier(0.33, 1, 0.68, 1);
+      transform: rotateX(0deg);
+      z-index: 6;
+      transform-style: preserve-3d;
+      backface-visibility: visible;
+      background-color: var(--envelope-border);
+      filter: blur(10px);
+    }
+    
+
+  @keyframes openFlap {
+    0% { 
+      transform: rotateX(0deg); 
+    }
+    100% { 
+      transform: rotateX(180deg) translateZ(1px); 
+    }
+  }
+
+
+  .envelope-flap.wiggle .envelope-flap-shadow.wiggle {
+    animation: wiggleFlap 1s ease;
+  }
+
+  @keyframes wiggleFlap {
+    0% { transform: rotateX(0deg); }
+    25% { transform: rotateX(15deg); }
+    50% { transform: rotateX(0deg); }
+    75% { transform: rotateX(5deg); }
+    100% { transform: rotateX(0deg); }
+  }
+
+  .envelope.opening .envelope-flap {
+    transform: rotateX(180deg) translateZ(1px);
+  }
+
+  .envelope.opening .envelope-flap-shadow {
+    transform: rotateX(180deg) translateZ(1px);
+  }
+
+  .envelope-outside{
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--envelope-color);
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0);
+    position: relative;
+
+    background-image: 
+      linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent),
+      linear-gradient(-45deg, rgba(0, 0, 0, 0.03) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.03) 75%, transparent 75%, transparent);
+    background-size: 50px 50px;
+  }
+
+  .envelope-outside::after {
+    content: '';
+    position: absolute;
+    filter: blur(25px) saturate(1.5);
+    left: 0;
+    width: 100%;
+    height: 100%;
+    scale: 1.05;
+    z-index: -1;
+  }
+
+  .envelope-inside {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%); /* Only transform X, not Y */
+    width: 95%;
+    height: 0; /* Start with zero height */
+    background-color: white;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align content to bottom */
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform-origin: center bottom; /* Origin at bottom */
+    border-radius: 4px;
+  }
+
+  .envelope.opening .envelope-inside {
+    opacity: 1;
+    transition-delay: 1s;
+    height: 10%;
+  }
+
+  .envelope.open .envelope-inside {
+    animation: pullOutCard 2.5s forwards;
+    z-index: 4;
+  }
+
+  @keyframes pullOutCard {
+    0% {
+      height: 10%;
+      bottom: 50%;
+      opacity: 1;
+      width: 95%;
+      z-index: 4;
+    }
+    50% {
+      height: 85%;
+      bottom: 50%;
+      opacity: 1;
+      width: 95%;
+      z-index: 4;
+    }
+    70% {
+      height: 85%;
+      bottom: 50%;
+      opacity: 1;
+      width: 95%;
+      z-index: 4;
+    }
+    100% {
+      height: 180%;
+      bottom: 50%;
+      opacity: 1;
+      width: 95%;
+      z-index: 4;
+    }
+  }
+
+  .envelope-content-preview {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    overflow: hidden;
+  }
+
+  .envelope.opening .envelope-content-preview {
+    opacity: 1;
+    transition-delay: 1s;
+  }
+
+  .envelope.open .envelope-content-preview {
+    animation: fadeInContent 2.5s forwards;
+  }
+
+  @keyframes fadeInContent {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .envelope-seal {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130px;
+    height: 130px;
+    background: radial-gradient(circle at center, #FF0000 0%, #C50000 30%, #8B0000 70%, #5E0000 100%);
+    border-radius: 50%;
+    border-color: #7d2300b2;
+    border-style: solid;
+    border-width: 5px;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.2);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    /* Textura mejorada para simular cera real */
+    background-image: 
+      radial-gradient(circle at 30% 30%, #FF3333 0%, transparent 40%),
+      radial-gradient(circle at 70% 70%, #8B0000 0%, transparent 40%),
+      repeating-radial-gradient(circle at 50% 50%, #C50000, #C50000 5px, #B00000 5px, #B00000 10px);
+    /* Efecto de irregularidad en los bordes */
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+  }
+
+  /* Añadir textura de cera con pseudo-elementos */
+  .envelope-seal::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    background: 
+      radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.3) 0%, transparent 20%),
+      radial-gradient(circle at 60% 60%, rgba(0, 0, 0, 0.2) 0%, transparent 20%);
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0.9;
+    /* Simular imperfecciones de la cera */
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .envelope-seal::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    opacity: 0.7;
+    background-color: #B00000;
+    /* Simular gotas de cera */
+    background-image: 
+      radial-gradient(circle at 20% 80%, #C50000 0%, transparent 15%),
+      radial-gradient(circle at 80% 20%, #C50000 0%, transparent 15%);
+    filter: blur(1px);
+    pointer-events: none;
+  }
+
+  .envelope-seal:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6), inset 0 2px 8px rgba(255, 255, 255, 0.3);
+  }
+
+  .envelope.opening .envelope-seal {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(45deg);
+    transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.5);
+    background-color: #A50000;
+  }
+
+  .seal-content {
+    color: #FFF8F0;
+    font-family: 'Better Saturday Personal Use', cursive;
+    font-size: 2.2rem;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    position: relative;
+    letter-spacing: 1px;
+    /* Efecto de relieve para las letras */
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.3);
+    text-shadow: 
+      0 1px 0 rgba(255, 255, 255, 0.4),
+      0 -1px 0 rgba(0, 0, 0, 0.7);
+  }
+
+  .seal-content::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm20 20a10 10 0 1 0 0-20 10 10 0 0 0 0 20zm0 0a10 10 0 1 1 0 20 10 10 0 0 1 0-20z' fill='%23FFFFFF' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    z-index: -1;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* Animación de pulso para el sello */
+  .envelope-seal.pulse {
+    animation: pulseSeal 1s ease;
+  }
+
+  @keyframes pulseSeal {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+  }
+
+  .envelope-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+    z-index: 2;
+  }
+
+  .envelope-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .envelope-content p {
+    font-size: 1.2rem;
+    color: var(--text-color);
+  }
+
+  .invitation-content {
+      display: none;
+      opacity: 0;
+      position: static;
+      width: 100%;
+      background-color: var(--background-color);
+      min-height: 100vh;
+      overflow: auto;
+      transform-origin: center top;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    }
+  
+    /* Efecto de papel */
+    .paper-effect {
+      animation: paperWave 1.5s ease-out forwards;
+      background-color: #FFF8F0;
+      background-image: 
+        linear-gradient(90deg, rgba(212, 185, 150, 0.05) 0px, rgba(212, 185, 150, 0.05) 1px, transparent 1px, transparent 30px),
+        linear-gradient(rgba(212, 185, 150, 0.05) 0px, rgba(212, 185, 150, 0.05) 1px, transparent 1px, transparent 30px);
+      background-size: 30px 30px;
+    }
+  
+    /* Decoración de esquinas para el papel */
+    .invitation-content::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 1px solid rgba(212, 185, 150, 0.2);
+      pointer-events: none;
+      z-index: -1;
+    }
+  
+    @keyframes paperWave {
+      0% {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        border-radius: 0;
+      }
+      30% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border-radius: 5px 5px 0 0;
+      }
+      70% {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 2px 2px 0 0;
+      }
+      100% {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border-radius: 0;
+      }
+    }
+  
+    /* Efecto de textura de papel */
+    .invitation-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.5;
+    }
+  
+    /* Animación para los elementos internos con efecto de aparición escalonada */
+    .invitation-content > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition-delay: calc(var(--delay, 0) * 0.15s + 0.5s);
+    }
+  
+    .paper-effect > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  /* Fix for navigation */
+  nav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Fix navigation items alignment */
+  nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 2rem;
+    width: 100%;
+    max-width: 800px;
+    padding: 0 1rem;
+  }
+
+  nav li {
+    margin: 0;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  nav a:hover {
+    color: var(--secondary-color);
+  }
+
+  /* Remove conflicting styles */
+  main {
+    height: auto !important;
+    overflow-y: auto !important;
+    scroll-behavior: smooth;
+    width: 100%;
+  }
+
+  .hidden {
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Original styles */
+  .section {
+    height: 100vh;
+    scroll-snap-align: start;
+    padding: 2rem 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+  }
+
+  .button:hover {
+    background-color: var(--secondary-color);
+    color: white;
+  }
+  
+  main {
+    scroll-snap-type: y proximity;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+</style>
