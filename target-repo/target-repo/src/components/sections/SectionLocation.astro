@@ -22,7 +22,7 @@ const t = translations[lang as SupportedLanguages];
           </span>
           <span>
             <a href={t['calendar.appointment'] || 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bodorrio%202025:%20Luard%20y%20Nataly&dates=20250911T173000/20250912T030000&location=Masia%20Piguillem,%20Carretera%20C-37,%20km.%20163,%2008572%20Sant%20Andreu%20de%20la%20Vola,%20Barcelona&details=¡Te%20esperamos%20en%20nuestra%20boda!'} target="_blank" class="calendar-link">
-              <strong>{t['info.date.value']} <span class="tooltip">[🗓️ Agregar al calendario]</span></strong>
+              <strong>{t['info.date.value']}<br><span class="tooltip">[{t['tooltip.calendar']} 🗓️ ]</span></strong>
             </a>
           </span>
         </p>
@@ -48,10 +48,15 @@ const t = translations[lang as SupportedLanguages];
             <strong>{t['info.location.label']}:</strong>
           </span>
           <a href="https://maps.google.com/?q=Masia+Piguillem,+Carretera+C-37,+km.+163,+08572+Sant+Andreu+de+la+Vola,+Barcelona" target="_blank" class="maps-link">
-            <span>{t['location.venue']} <span class="tooltip">[📍 Cómo llegar]</span></span>
-          </a>
+            <span>{t['location.venue']}<br><span class="tooltip">[{t['tooltip.location']} 📍 ]</span></span>
+            
+          </a><!--
+          <br>
+          <span>{t['location.address']}</span>
+           -->
         </p>
   
+        <!--
         <p>
           <span class="icon-label">
             <span class="icon">
@@ -63,9 +68,10 @@ const t = translations[lang as SupportedLanguages];
             <strong>{t['info.address.label']}:</strong>
           </span>
           <span>
-              {t['location.address']}
+              
           </span>
         </p>
+         -->
       </div>
       <div class="map-container">
         <iframe
@@ -96,9 +102,13 @@ const t = translations[lang as SupportedLanguages];
   h2 {
     font-size: 3rem;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     color: var(--secondary-color);
     text-align: center;
+  }
+
+  span {
+    white-space: pre-wrap;
   }
 
   .info-container {
@@ -107,10 +117,12 @@ const t = translations[lang as SupportedLanguages];
     gap: 2rem;
     max-width: 1200px;
     width: 100%;
+    vertical-align: baseline;
   }
 
   .info-text {
     padding: 2rem;
+    vertical-align: baseline;
   }
 
   .info-text p {
@@ -118,15 +130,14 @@ const t = translations[lang as SupportedLanguages];
     font-size: 1.2rem;
     display: grid;
     grid-template-columns: auto 1fr;
-    align-items: center;
     gap: 1rem;
+    vertical-align: baseline;
   }
 
   .icon-label {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    min-width: 150px;
   }
 
   .icon {
@@ -190,11 +201,12 @@ const t = translations[lang as SupportedLanguages];
     }
 
     .info-text p {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       font-size: 1.2rem;
       display: grid;
       grid-template-columns: 1fr 2fr;
       align-items: center;
+      padding-bottom: 1rem;
     }
   }
 </style>
