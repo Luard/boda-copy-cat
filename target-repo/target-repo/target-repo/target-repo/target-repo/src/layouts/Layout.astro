@@ -1,7 +1,6 @@
 ---
 import Navigation from '../components/Navigation.astro';
 import { translations } from '../i18n/translations';
-import { defaultLang } from '../i18n/defaultLang';
 import SectionMain from '../components/sections/SectionMain.astro';
 import SectionIntro from '../components/sections/SectionIntro.astro';
 import SectionSchedule from '../components/sections/SectionSchedule.astro';
@@ -12,7 +11,7 @@ import SectionLocation from '../components/sections/SectionLocation.astro';
 import SectionAccommodation from '../components/sections/SectionAccommodation.astro';
 
 type SupportedLanguages = keyof typeof translations;
-const { lang = defaultLang } = Astro.props;
+const { lang = 'es' } = Astro.props;
 const t = translations[lang as SupportedLanguages];
 ---
 
