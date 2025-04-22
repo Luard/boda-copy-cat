@@ -1,0 +1,28 @@
+name: Sync to Repo B
+
+on:
+  push:
+    branches:
+      - main  # O la rama que quieras sincronizar
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Luard"
+          git config --global user.email "luard.developer@gmail.com"
+
+      - name: Clone target repo
+        run: |
+          git clone https://x-access-token:${{ secrets.TARGET_REPO_TOKEN }}@github.com/Luard/boda-copy-cat.git target-repo
+          rsync -av --delete --exclude='.git' ./ target-repo/
+          cd target-repo
+          git add .
+          git commit -m "Sync from repo A" || echo "No changes to commit"
+          git push
