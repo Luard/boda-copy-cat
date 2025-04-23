@@ -56,7 +56,7 @@ export const translations = {
     "schedule.party.description": "¡Bailaremos y celebraremos hasta altas horas de la noche con música y sorpresas especiales!",
     "dresscode.title": "Dress code",
     "dresscode.formal": "Formal",
-    "dresscode.description": "Guapos, elegantes y ¡con ganas de pasarlo genial!",
+    "dresscode.description": "Nos encantaría veros radiantes en este día tan especial.\n\n¡Queremos que te sientas espectacular!",
     "dresscode.dress.alt": "Vestido",
     "dresscode.suit.alt": "Traje",
     // Other section
@@ -124,7 +124,7 @@ export const translations = {
     "schedule.party.description": "Ballarem i celebrarem fins a altes hores de la nit amb música i sorpreses especials!",    
     "dresscode.title": "Dress code",
     "dresscode.formal": "Formal",
-    "dresscode.description": "Guapos, elegants i... amb ganes de passar-ho genial!",
+    "dresscode.description": "Ens encantaria veure-us radiants en aquest dia tan especial.\n\nVolem que et sentis espectacular !",
     "dresscode.dress.alt": "Vestit",
     "dresscode.suit.alt": "Vestit",
     // Others section
