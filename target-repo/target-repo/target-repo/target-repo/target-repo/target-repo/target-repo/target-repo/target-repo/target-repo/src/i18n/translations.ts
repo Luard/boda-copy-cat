@@ -3,8 +3,6 @@ export const languages = {
   ca: 'Català'
 };
 
-export const defaultLang = 'es';
-
 export const translations = {
   es: {
     'meta.title':'Boda Luard y Nataly',
@@ -70,7 +68,6 @@ export const translations = {
     "others.allergens.alt": "Alergias",
     "accommodation.title": "¿ Necesitas alojamiento ?",
     "calendar.appointment": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bodorrio%202025:%20Luard%20y%20Nataly&dates=20250911T173000/20250912T030000&location=Masia%20Piguillem,%20Carretera%20C-37,%20km.%20163,%2008572%20Sant%20Andreu%20de%20la%20Vola,%20Barcelona&details=¡Te%20esperamos%20en%20nuestra%20boda!",
-      // Add these to your Spanish translations
     "rsvp.deadline": "Agradeceríamos confirmación de asistencia antes del 1 de Julio.",
   },
   ca: {
@@ -137,8 +134,6 @@ export const translations = {
     "others.allergens.alt": "Al·lèrgies",
     "accommodation.title": "Necessites allotjament ?",
     "calendar.appointment": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bodorrio%202025:%20Luard%20i%20Nataly&dates=20250911T173000/20250912T030000&location=Masia%20Piguillem,%20Carretera%20C-37,%20km.%20163,%2008572%20Sant%20Andreu%20de%20la%20Vola,%20Barcelona&details=T'esperem%20a%20la%20nostra%20boda!",
-  
-  // Add these to your Catalan translations
-  "rsvp.deadline": "Agrairíem confirmació d'assistència abans de l'1 de Juliol.",
+    "rsvp.deadline": "Agrairíem confirmació d'assistència abans de l'1 de Juliol.",
   }
 };
