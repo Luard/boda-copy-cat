@@ -4,7 +4,7 @@ import { defaultLang } from './src/i18n/defaultLang';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://elbodorrio2025.cat',
+    site: 'http://elbodorrio2025.com',
     i18n: {
         locales: ['es', 'ca'],
         defaultLocale: defaultLang,
