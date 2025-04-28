@@ -14,7 +14,10 @@ const { currentLang } = Astro.props;
   <div class="languages hidden" id="languages">
     {Object.entries(languages).map(([lang, label]) => {
       // Construir la URL correctamente
-      const href = lang === 'es' ? '/' : `/${lang}`;
+      //const href = lang === 'es' ? '/' : `/${lang}`;
+      const href = lang === 'es' ? 'https://elbodorrio2025.com'
+        : lang === 'ca' ? `https://elbodorrio2025.cat`
+        : `/${lang}`;
       
       return (
         <a 
