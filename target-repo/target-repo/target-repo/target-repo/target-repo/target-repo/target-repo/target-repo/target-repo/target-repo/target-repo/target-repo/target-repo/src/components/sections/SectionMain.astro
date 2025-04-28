@@ -12,7 +12,9 @@ const t = translations[lang as SupportedLanguages];
     <div class="names-container">
       <h1>{t['wedding.Luard'] || 'Luard'} <span class="y">{t['wedding.y'] || 'y'}</span> {t['wedding.Nataly'] || 'Nataly'}</h1>
     </div>
-    
+    <div class="divider">
+      <img src="/images/heart-divider.png" alt={t['others.divider.alt']} class="icon-image">
+    </div>
     <div class="date-container">
       <div class="date-line">
         <span class="date-label">{t['date.day'] || 'JUEVES'}</span>
@@ -49,6 +51,11 @@ const t = translations[lang as SupportedLanguages];
     overflow: hidden;
     }
 
+  .icon-image {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -59,7 +66,7 @@ const t = translations[lang as SupportedLanguages];
   }
 
   .names-container {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 
   h1 {
@@ -79,7 +86,7 @@ const t = translations[lang as SupportedLanguages];
   }
 
   .date-container {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
 
   .date-line {
