@@ -51,7 +51,9 @@ const t = translations[lang as SupportedLanguages];
           </div>
         </div>
         <div class="envelope-seal" id="envelope-seal">
-          <div class="seal-content">L&N</div>
+          <div class="seal-content">
+            <img src="/images/LN-logo.png" alt="L&N" class="seal-logo">
+          </div>
         </div>
         <div class="envelope-outside" />
       </div>
@@ -269,10 +271,8 @@ const t = translations[lang as SupportedLanguages];
       if (envelopeSeal) {
         setTimeout(() => {
           envelopeSeal.classList.add('pulse');
-          setTimeout(() => {
-            envelopeSeal.classList.remove('pulse');
-          }, 1000);
-        }, 1500);
+          
+        }, 1000);
       }
 
       // Make only the seal clickable
@@ -1038,11 +1038,22 @@ const t = translations[lang as SupportedLanguages];
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
     position: relative;
     letter-spacing: 1px;
-    /* Efecto de relieve para las letras */
     -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.3);
     text-shadow: 
       0 1px 0 rgba(255, 255, 255, 0.4),
       0 -1px 0 rgba(0, 0, 0, 0.7);
+      display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .seal-logo {
+    width: 95%;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1); 
   }
 
   .seal-content::before {
@@ -1060,13 +1071,14 @@ const t = translations[lang as SupportedLanguages];
 
   /* Animación de pulso para el sello */
   .envelope-seal.pulse {
-    animation: pulseSeal 1s ease;
+    animation: pulseSeal 4s ease infinite;
   }
 
   @keyframes pulseSeal {
-    0% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.1); }
-    100% { transform: translate(-50%, -50%) scale(1); }
+    0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.2); }
+    15% { transform: translate(-50%, -50%) scale(1.08) rotate(3deg); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5), inset 0 2px 8px rgba(255, 255, 255, 0.3); }
+    30% { transform: translate(-50%, -50%) scale(1) rotate(0deg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.2); }
+    100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 2px 5px rgba(255, 255, 255, 0.2); }
   }
 
   .envelope-content {
