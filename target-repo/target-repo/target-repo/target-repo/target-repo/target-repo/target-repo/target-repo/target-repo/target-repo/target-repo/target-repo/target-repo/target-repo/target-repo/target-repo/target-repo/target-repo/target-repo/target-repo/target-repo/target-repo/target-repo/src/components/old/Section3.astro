@@ -1,0 +1,83 @@
+---
+import { translations } from '../i18n/translations';
+
+type SupportedLanguages = keyof typeof translations;
+const { lang = 'es' } = Astro.props;
+const t = translations[lang as SupportedLanguages];
+---
+
+<section class="section section3" id="rsvp">
+  <div class="content fade-in">
+    <h2>{t['rsvp.title']}</h2>
+    <form class="rsvp-form">
+      <div class="form-group">
+        <label for="nombre">{t['rsvp.name.label']}:</label>
+        <input type="text" id="nombre" name="nombre" required>
+      </div>
+      <div class="form-group">
+        <label for="apellido">{t['rsvp.surname.label']}:</label>
+        <input type="text" id="apellido" name="apellido" required>
+      </div>
+      <button type="submit" class="button">{t['rsvp.button']}</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .section3 {
+    background-color: var(--background-color);
+  }
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: var(--secondary-color);
+    text-align: center;
+  }
+
+  .rsvp-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+  }
+
+  button {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 2rem;
+    }
+
+    .rsvp-form {
+      padding: 1.5rem;
+    }
+  }
+</style>

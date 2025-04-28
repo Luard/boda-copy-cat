@@ -14,9 +14,11 @@ const t = translations[lang as SupportedLanguages];
         <p>
           <span class="icon-label">
             <span class="icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              🗓️
+              <!--<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 2V5M16 2V5M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
+            -->
             </span>
             <strong>{t['info.date.label']}:</strong>
           </span>
@@ -29,9 +31,11 @@ const t = translations[lang as SupportedLanguages];
         <p>
           <span class="icon-label">
             <span class="icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              🕠
+              <!--<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 8V13M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
+               -->
             </span>
             <strong>{t['info.time.label']}:</strong>
           </span>
@@ -41,19 +45,18 @@ const t = translations[lang as SupportedLanguages];
         <p>
           <span class="icon-label">
             <span class="icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              📍
+              <!--<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 22H22M12 2C15.87 2 19 5.13 19 9C19 13.17 14.58 15.92 12.14 21.02C12.06 21.19 11.94 21.19 11.86 21.02C9.42 15.92 5 13.17 5 9C5 5.13 8.13 2 12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
+               -->
             </span>
             <strong>{t['info.location.label']}:</strong>
           </span>
           <a href="https://maps.google.com/?q=Masia+Piguillem,+Carretera+C-37,+km.+163,+08572+Sant+Andreu+de+la+Vola,+Barcelona" target="_blank" class="maps-link">
-            <span>{t['location.venue']}<br><span class="tooltip">[{t['tooltip.location']} 📍 ]</span></span>
+            <span><strong>{t['location.venue']}<br><span class="tooltip">[{t['tooltip.location']} 📍 ]</span></strong></span>
             
-          </a><!--
-          <br>
-          <span>{t['location.address']}</span>
-           -->
+          </a>
         </p>
   
         <!--
@@ -130,13 +133,18 @@ const t = translations[lang as SupportedLanguages];
     font-size: 1.2rem;
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 1rem;
-    vertical-align: baseline;
+    gap: 1.2rem;
+    align-items: start;
+  }
+
+  .info-text p span .tooltip {
+    display: flex;
+    justify-content: right;
   }
 
   .icon-label {
     display: flex;
-    align-items: center;
+    align-items: flex-start; 
     gap: 0.75rem;
   }
 

@@ -62,8 +62,19 @@ const t = translations[lang as SupportedLanguages];
         }
       }
     }
+
     // Determinar la sección inicial basada en la posición de scroll
     updateCurrentSection();
+
+    const scrollArrow = document.querySelectorAll('#scroll-arrow');
+    scrollArrow.forEach(arrow => {
+      arrow.addEventListener('click', () => {
+        const nextIndex = currentSectionIndex + 1;
+        if (nextIndex < sections.length) {
+          scrollToSection(nextIndex);
+        }
+      });
+    });
   }
 
   // Ejecutar al cargar la página
