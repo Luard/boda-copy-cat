@@ -99,7 +99,7 @@ export const translations = {
     'rsvp.name.label': 'Nom',
     'rsvp.surname.label': 'Cognoms',
     // Intro Section
-    "intro.invitation": "Amb molta il·lusió, volem compartir amb vosaltres aquest dia tan especial a les nostres vides. Us convidem a celebrar el nostre amor i a ser testimonis de l'inici d'aquesta nova etapa junts.\nLa vostra presència farà del nostre casament un moment encara más màgic.\n\nUs esperem amb molt d'afecte!",
+    "intro.invitation": "Amb molta il·lusió, volem compartir amb vosaltres aquest dia tan especial a les nostres vides. Us convidem a celebrar el nostre amor i a ser testimonis de l'inici d'aquesta nova etapa junts.\nLa vostra presència farà del nostre casament un moment encara més màgic.\n\nUs esperem amb molt d'afecte!",
     "intro.countdown.heading": "Prepara't, falten...",
     "intro.countdown.days": "DIES",
     "intro.countdown.hours": "HORES",
