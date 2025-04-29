@@ -11,7 +11,7 @@ const { currentLang } = Astro.props;
       <span class="bar"></span>
       <span class="icon">🌐</span>
     </button>
-  <div class="languages hidden" id="languages">
+  <div class="languages" id="languages">
     {Object.entries(languages).map(([lang, label]) => {
       // Construir la URL correctamente
       //const href = lang === 'es' ? '/' : `/${lang}`;
@@ -35,9 +35,10 @@ const { currentLang } = Astro.props;
 <script>
   const langToggle = document.getElementById('lang-toggle');
   const languages = document.getElementById('languages');
+  
   langToggle?.addEventListener('click', () => {
     langToggle.classList.toggle('active');
-    languages?.classList.toggle('hidden');
+    languages?.classList.toggle('expanded');
   });
 
   // Script para preservar el hash al cambiar de idioma
@@ -77,15 +78,21 @@ const { currentLang } = Astro.props;
     padding: 0.3rem;
     border-radius: 25px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: bottom 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   .languages {
-    
+    display: flex;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    gap: 0.3rem;
+    transition: max-width 0.8s ease, opacity 0.8s ease;
   }
 
-  .languages.hidden {
-    visibility: hidden;
+  .languages.expanded {
+    max-width: 300px;
+    opacity: 1;
   }
 
   .lang-toggle {
@@ -102,11 +109,7 @@ const { currentLang } = Astro.props;
     justify-content: center;
     transition: all 0.3s ease;
     font-size: 1.5rem;
-  }
-  .lang-toggle.hidden {
-    oppacity: 0;
-  }
-  .lang-toggle:hover {
+    z-index: 2;
   }
 
   .lang-toggle .bar {
@@ -117,6 +120,10 @@ const { currentLang } = Astro.props;
     transition: all 0.3s ease;
   }
 
+  .lang-toggle .icon {
+    transition: transform 0.3s ease;
+  }
+
   .lang-toggle.active .icon {
     display: none;
   }
@@ -125,7 +132,6 @@ const { currentLang } = Astro.props;
     display: inline;
     transform: translateY(8px) rotate(45deg);
   }
-
 
   .lang-toggle.active .bar:nth-child(2) {
     display: inline;
@@ -143,6 +149,7 @@ const { currentLang } = Astro.props;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     transition: all 0.3s ease;
+    white-space: nowrap;
   }
 
   .lang-link:hover {
@@ -162,7 +169,7 @@ const { currentLang } = Astro.props;
       padding: 0.3rem;
       border-radius: 25px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: bottom 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .lang-link {
