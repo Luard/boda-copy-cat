@@ -1,0 +1,99 @@
+---
+import { languages } from '../i18n/translations';
+
+const { currentLang } = Astro.props;
+---
+
+<div class="language-selector">
+  {Object.entries(languages).map(([lang, label]) => {
+    // Construir la URL correctamente
+    const href = lang === 'es' ? '/' : `/${lang}`;
+    
+    return (
+      <a 
+        href={href}
+        class={`lang-link ${currentLang === lang ? 'active' : ''}`}
+        data-lang={lang}
+      >
+        {label}
+      </a>
+    );
+  })}
+</div>
+
+<script>
+  // Script para preservar el hash al cambiar de idioma
+  document.addEventListener('DOMContentLoaded', () => {
+    const langLinks = document.querySelectorAll('.lang-link');
+    const currentHash = window.location.hash;
+    
+    langLinks.forEach(link => {
+      // Añadir el hash actual a cada enlace
+      if (currentHash) {
+        link.setAttribute('href', `${link.getAttribute('href')}${currentHash}`);
+      }
+      
+      // Prevenir el comportamiento por defecto para manejar el error
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href) {
+          window.location.href = href;
+          e.preventDefault();
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .language-selector {
+    position: fixed;
+    top: 0.5rem;
+    right: 1rem;
+    z-index: 1000;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .lang-link {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .lang-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  .lang-link.active {
+    background-color: var(--secondary-color);
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .language-selector {
+      position: fixed;
+      top: auto;
+      bottom: 4rem;
+      right: 1rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 0.3rem;
+      border-radius: 25px;
+      backdrop-filter: blur(5px);
+    }
+
+    .lang-link {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    .lang-link.active {
+      background-color: var(--primary-color);
+    }
+  }
+</style>

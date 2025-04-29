@@ -11,27 +11,6 @@ const t = translations[lang as SupportedLanguages];
     <div class="invitation-text">
       <p>{t['intro.invitation']}</p>
     </div>
-    
-    <h3 class="countdown-heading">{t['intro.countdown.heading']}</h3>
-    
-    <div class="countdown-container" id="countdown">
-      <div class="countdown-item">
-        <span class="countdown-number" id="days">000</span>
-        <span class="countdown-label">{t['intro.countdown.days']}</span>
-      </div>
-      <div class="countdown-item">
-        <span class="countdown-number" id="hours">00</span>
-        <span class="countdown-label">{t['intro.countdown.hours']}</span>
-      </div>
-      <div class="countdown-item">
-        <span class="countdown-number" id="minutes">00</span>
-        <span class="countdown-label">{t['intro.countdown.minutes']}</span>
-      </div>
-      <div class="countdown-item">
-        <span class="countdown-number" id="seconds">00</span>
-        <span class="countdown-label">{t['intro.countdown.seconds']}</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -93,6 +72,8 @@ const t = translations[lang as SupportedLanguages];
     min-width: 100%;
     min-height: 100vh;
     overflow: hidden;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 
   .invitation-text {
@@ -103,7 +84,7 @@ const t = translations[lang as SupportedLanguages];
   }
 
   .invitation-text p {
-    font-size: 1.4rem;
+    font-size: 2rem;
     line-height: 1.8;
     color: var(--text-color);
     font-style: italic;
@@ -164,7 +145,8 @@ const t = translations[lang as SupportedLanguages];
 
   @media (max-width: 768px) {
     .invitation-text p {
-      font-size: 1.1rem;
+      margin-top: 2rem;
+      font-size: 1.4rem;
     }
 
     .countdown-heading {
