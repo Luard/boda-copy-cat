@@ -61,6 +61,9 @@ const t = translations[lang as SupportedLanguages];
         </div>
         <div class="envelope-outside" />
       </div>
+      <div id="click-instruction" class="click-instruction">
+        {t['envelope.click'] || 'Haz clic en el sello para abrir la invitación'}
+      </div>
     </div>
     <div id="invitation-content" class="invitation-content hidden">
       <div class="section" id="main">
@@ -104,6 +107,8 @@ const t = translations[lang as SupportedLanguages];
     const envelopeContentPreview = document.getElementById('envelope-content-preview');
     const envelopeInside = document.querySelector('.envelope-inside');
     const envelopeSeal = document.getElementById('envelope-seal');
+    const clickInstruction = document.getElementById('click-instruction');
+    let opening = false;
     
     // Check URL hash to determine initial state
     const urlHash = window.location.hash.toLowerCase();
@@ -113,10 +118,17 @@ const t = translations[lang as SupportedLanguages];
     if (envelopeContentPreview) {
       envelopeContentPreview.style.opacity = '0';
     }
+
+    
     
     // Function to handle envelope opening animation
     const openEnvelope = () => {
+      opening = true;
       // Disable pointer events during animation
+      if (clickInstruction) {
+        clickInstruction.classList.remove('visible');
+      }
+
       if (envelopeSeal) {
         envelopeSeal.style.pointerEvents = 'none';
       }
@@ -232,6 +244,18 @@ const t = translations[lang as SupportedLanguages];
         }, 700);
       }, 50);
     };
+
+    if (clickInstruction && !shouldOpenDirectly) {
+      clickInstruction.style.pointerEvents = 'auto';
+      clickInstruction.style.cursor = 'pointer';
+      clickInstruction.addEventListener('click', openEnvelope);
+
+      setTimeout(() => {
+        if(!opening) {
+          clickInstruction.classList.add('visible');
+        }
+      }, 3000);
+    }
     
     // If URL has #open, skip envelope animation and show content directly
     if (shouldOpenDirectly) {
@@ -403,6 +427,45 @@ const t = translations[lang as SupportedLanguages];
     transform: rotate(0deg);
   }
 
+  /* Click instruction message */
+  .click-instruction {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1001;
+    pointer-events: none;
+  }
+
+  .click-instruction.visible {
+    opacity: 1;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+    100% { transform: translateX(-50%) scale(1); }
+  }
+
+  @media (max-width: 768px) {
+    .click-instruction {
+      font-size: 1rem;
+      padding: 0.6rem 1.2rem;
+      bottom: 10%;
+    }
+  }
+
   .envelope-container::before {
     content: '';
     position: absolute;
@@ -442,7 +505,7 @@ const t = translations[lang as SupportedLanguages];
   }  
 
   .preview-section {
-    top:-15vh;
+    top:-12.5vh;
   }
   .preview-section h1 {
     font-size: 6rem;

@@ -89,7 +89,7 @@ export const translations = {
     'date.month': 'Setembre',
     'date.of': 'de',
     'rsvp.button': 'Confirmar Assistència',
-    'info.title': 'Informació del event',
+    'info.title': 'Informació de la celebració',
     'info.date.label': 'Data',
     'info.date.value': '11 de Setembre, 2025',
     'info.time.label': 'Hora',

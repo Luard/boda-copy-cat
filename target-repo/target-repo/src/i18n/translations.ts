@@ -71,6 +71,7 @@ export const translations = {
     "rsvp.deadline": "Agradeceríamos confirmación de asistencia antes del 1 de Julio.",
     "tooltip.calendar":"Añadir al calendario",
     "tooltip.location":"Cómo llegar",
+    'envelope.click': 'Haz clic para abrir la invitación',
   },
   ca: {
     'meta.title':'Boda Luard i Nataly',
@@ -139,5 +140,6 @@ export const translations = {
     "rsvp.deadline": "Agrairíem confirmació d'assistència abans de l'1 de Juliol.",
     "tooltip.calendar":"Afegir al calendari",
     "tooltip.location":"Com arribar",
+    'envelope.click': 'Fes click per obrir la invitació',
   }
 };
