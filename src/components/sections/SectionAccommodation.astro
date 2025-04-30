@@ -11,7 +11,7 @@ const t = translations[lang as SupportedLanguages];
     <h2>{t['accommodation.title'] || '¿ Necesitas alojamiento ?' }</h2>
     <div class="info-card">
       <div class="info-message">
-        <a href="https://hoteltorresmanlleu.com/" target="_blank">
+        <a href="https://hoteltorresmanlleu.com/" target="_blank" class="hotel-link">
           <p class="message-text">
             Hotel Torres Manlleu: 938833112
           </p>
@@ -20,7 +20,7 @@ const t = translations[lang as SupportedLanguages];
     </div>
     <div class="info-card">
       <div class="info-message">
-        <a href="https://hotelvalldebas.cat/es/home-es/" target="_blank">
+        <a href="https://hotelvalldebas.cat/es/home-es/" target="_blank" class="hotel-link">
           <p class="message-text">
             Hotel Vall de Bas: 972690101
           </p>
@@ -29,7 +29,7 @@ const t = translations[lang as SupportedLanguages];
     </div>
     <div class="info-card">
       <div class="info-message">
-        <a href="https://lesclarisses.com/" target="_blank">
+        <a href="https://lesclarisses.com/" target="_blank" class="hotel-link">
           <p class="message-text">
             Les Clarises: 936606000
           </p>
@@ -38,7 +38,7 @@ const t = translations[lang as SupportedLanguages];
     </div>
     <div class="info-card">
       <div class="info-message">
-        <a href="https://www.lapau.net/es" target="_blank">
+        <a href="https://www.lapau.net/es" target="_blank" class="hotel-link">
           <p class="message-text">
             Estança la Pau: 607658951
           </p>
@@ -73,18 +73,43 @@ const t = translations[lang as SupportedLanguages];
     margin-bottom: 1.5rem;
   }
 
-  .info-card a {
+  .hotel-link {
     text-decoration: none;
-    color: inherit;
+    color: var(--secondary-color);
+    display: inline-block;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    padding-right: 3rem;
+    padding-left: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
   }
 
-  .info-message {
+  .hotel-link::after {
+    content: '🔗';
+    position: absolute;
+    right: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    opacity: 0.7;
+  }
+
+  .hotel-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   .message-text {
     font-size: 1.5rem;
     line-height: 1.6;
-    color: #333;
+    margin: 0;
     /*font-family: 'Italiana', serif;*/
   }
 
@@ -119,12 +144,23 @@ const t = translations[lang as SupportedLanguages];
   }
 
   @media (max-width: 768px) {
-    .section-others{
-      height: 100vh;
-      overflow: hidden;
+    .section-notes {
+      height: auto;
+      padding: 4rem 1rem;
     }
+    
     .message-text {
       font-size: 1.2rem;
+    }
+
+    .hotel-link {
+      padding: 0.6rem 1.2rem;
+      width: 90%;
+    }
+    
+    .hotel-link::after {
+      right: 8px;
+      font-size: 0.9rem;
     }
 
     .allergy-icon {

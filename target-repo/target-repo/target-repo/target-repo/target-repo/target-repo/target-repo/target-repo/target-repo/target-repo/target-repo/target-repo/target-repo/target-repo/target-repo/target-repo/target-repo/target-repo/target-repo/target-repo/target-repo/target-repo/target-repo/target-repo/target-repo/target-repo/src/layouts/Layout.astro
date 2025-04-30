@@ -10,6 +10,7 @@ import SectionNotes from '../components/sections/SectionNotes.astro';
 import SectionRSVP from '../components/sections/SectionRSVP.astro';
 import SectionLocation from '../components/sections/SectionLocation.astro';
 import SectionAccommodation from '../components/sections/SectionAccommodation.astro';
+import SectionCountdown from '../components/sections/SectionCountdown.astro';
 
 type SupportedLanguages = keyof typeof translations;
 const { lang = defaultLang } = Astro.props;
@@ -56,6 +57,9 @@ const t = translations[lang as SupportedLanguages];
       </div>
       <div class="section" id="intro">
         <SectionIntro lang={lang} class="section"/>
+      </div>
+      <div class="section" id="countdown">
+        <SectionCountdown lang={lang} class="section"/>
       </div>
       <div class="section" id="info">
         <SectionLocation lang={lang}/>
@@ -429,7 +433,7 @@ const t = translations[lang as SupportedLanguages];
   }  
 
   .preview-section {
-    top:-12.5vh;
+    top:-5vh;
   }
 
   .invitation-content .section {
@@ -536,7 +540,7 @@ const t = translations[lang as SupportedLanguages];
     }
 
     .preview-section {
-      top: -20vh;
+      top: -5vh;
     }
   }
 
