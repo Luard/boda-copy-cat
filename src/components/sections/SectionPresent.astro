@@ -1,0 +1,120 @@
+---
+import { translations } from '../../i18n/translations';
+
+type SupportedLanguages = keyof typeof translations;
+const { lang = 'es' } = Astro.props;
+const t = translations[lang as SupportedLanguages];
+---
+
+<section class="section-present">
+  <div class="content fade-in">
+    <div class="present-text">
+      <p>{t['present.text']}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-present {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .present-text {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+    white-space: pre-wrap;
+  }
+
+  .present-text p {
+    font-size: 2.5rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    font-style: italic;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .countdown-heading {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--secondary-color);
+    position: relative;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  .countdown-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+  }
+
+  .countdown-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+  }
+
+  .countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .countdown-number {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .countdown-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 0.5rem;
+    color: var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+  }
+
+  @media (max-width: 768px) {
+    .present-text p {
+      margin-top: 2rem;
+      font-size: 1.6rem;
+    }
+
+    .countdown-heading {
+      font-size: 2rem;
+    }
+
+    .countdown-container {
+      gap: 1rem;
+    }
+
+    .countdown-number {
+      font-size: 2.5rem;
+    }
+
+    .countdown-label {
+      font-size: 0.8rem;
+    }
+  }
+</style>

@@ -72,6 +72,7 @@ export const translations = {
     "tooltip.calendar":"Añadir al calendario",
     "tooltip.location":"Cómo llegar",
     'envelope.click': 'Haz clic para abrir la invitación',
+    'present.text': 'Tu presencia es nuestro mejor regalo, pero si además deseas contribuir a nuestra luna de miel/hogar, te lo agradeceremos de corazón. \n\nMuchas gracias',
   },
   ca: {
     'meta.title':'Boda Luard i Nataly',
@@ -141,5 +142,6 @@ export const translations = {
     "tooltip.calendar":"Afegir al calendari",
     "tooltip.location":"Com arribar",
     'envelope.click': 'Fes click per obrir la invitació',
+    'present.text': 'La vostra presència és el millor regal, però si a més voleu contribuir al nostre viatge de noces/casa, us ho agrairem de tot cor. \n\nMoltes gràcies',
   }
 };

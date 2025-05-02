@@ -11,6 +11,7 @@ import SectionRSVP from '../components/sections/SectionRSVP.astro';
 import SectionLocation from '../components/sections/SectionLocation.astro';
 import SectionAccommodation from '../components/sections/SectionAccommodation.astro';
 import SectionCountdown from '../components/sections/SectionCountdown.astro';
+import SectionPresent from '../components/sections/SectionPresent.astro';
 
 type SupportedLanguages = keyof typeof translations;
 const { lang = defaultLang } = Astro.props;
@@ -89,6 +90,9 @@ const t = translations[lang as SupportedLanguages];
       </div>
       <div class="section" id="accommodation">
         <SectionAccommodation lang={lang}/>
+      </div>
+      <div class="section" id="present">
+        <SectionPresent lang={lang}/>
       </div>
       <div class="section" id="rsvp">
         <SectionRSVP lang={lang}/>

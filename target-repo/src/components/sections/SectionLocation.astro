@@ -11,71 +11,41 @@ const t = translations[lang as SupportedLanguages];
     <h2>{t['info.title']}</h2>
     <div class="info-container">
       <div class="info-text">
-        <p>
-          <span class="icon-label">
-            <span class="icon">
-              🗓️
-              <!--<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 2V5M16 2V5M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            -->
-            </span>
-            <strong>{t['info.date.label']}:</strong>
-          </span>
-          <span class="info-data">
-            <a href={t['calendar.appointment'] || 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bodorrio%202025:%20Luard%20y%20Nataly&dates=20250911T173000/20250912T030000&location=Masia%20Piguillem,%20Carretera%20C-37,%20km.%20163,%2008572%20Sant%20Andreu%20de%20la%20Vola,%20Barcelona&details=¡Te%20esperamos%20en%20nuestra%20boda!'} target="_blank" class="calendar-link">
-              <strong>{t['info.date.value']}<br><span class="tooltip">[{t['tooltip.calendar']} 🗓️ ]</span></strong>
+        <div class="info-item">
+          <div class="info-icon">
+            <span class="icon-content">🗓️</span>
+          </div>
+          <div class="info-content">
+            <h3>{t['info.date.label']}</h3>
+            <a href={t['calendar.appointment'] || 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Bodorrio%202025:%20Luard%20y%20Nataly&dates=20250911T173000/20250912T030000&location=Masia%20Piguillem,%20Carretera%20C-37,%20km.%20163,%2008572%20Sant%20Andreu%20de%20la%20Vola,%20Barcelona&details=¡Te%20esperamos%20en%20nuestra%20boda!'} target="_blank" class="info-link">
+              <span class="link-content">{t['info.date.value']}</span>
+              <div class="tooltip">{t['tooltip.calendar']} 🗓️</div>
             </a>
-          </span>
-        </p>
-        <p>
-          <span class="icon-label">
-            <span class="icon">
-              🕠
-              <!--<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 8V13M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-               -->
-            </span>
-            <strong>{t['info.time.label']}:</strong>
-          </span>
-          <span class="info-data time">{t['location.time']}</span>
-        </p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon">
+            <span class="icon-content">🕠</span>
+          </div>
+          <div class="info-content">
+            <h3>{t['info.time.label']}</h3>
+            <div class="info-value">{t['location.time']}</div>
+          </div>
+        </div>
   
-        <p>
-          <span class="icon-label">
-            <span class="icon">
-              📍
-              <!--<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 22H22M12 2C15.87 2 19 5.13 19 9C19 13.17 14.58 15.92 12.14 21.02C12.06 21.19 11.94 21.19 11.86 21.02C9.42 15.92 5 13.17 5 9C5 5.13 8.13 2 12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-               -->
-            </span>
-            <strong>{t['info.location.label']}:</strong>
-          </span>
-          <span class="info-data">
-            <a href="https://maps.google.com/?q=Masia+Piguillem,+Carretera+C-37,+km.+163,+08572+Sant+Andreu+de+la+Vola,+Barcelona" target="_blank" class="maps-link">
-              <strong>{t['location.venue']}<br><span class="tooltip">[{t['tooltip.location']} 📍 ]</span></strong>
+        <div class="info-item">
+          <div class="info-icon">
+            <span class="icon-content">📍</span>
+          </div>
+          <div class="info-content">
+            <h3>{t['info.location.label']}</h3>
+            <a href="https://maps.google.com/?q=Masia+Piguillem,+Carretera+C-37,+km.+163,+08572+Sant+Andreu+de+la+Vola,+Barcelona" target="_blank" class="info-link">
+              <span class="link-content">{t['location.venue']}</span>
+              <div class="tooltip">{t['tooltip.location']} 📍</div>
             </a>
-          </span>          
-        </p>
-  
-        <!--
-        <p>
-          <span class="icon-label">
-            <span class="icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22 9.08V14.92C22 15.89 21.96 16.73 21.86 17.45C21.62 19.14 20.9 20.04 19.55 20.18C19.06 20.24 18.48 20.26 17.81 20.26H6.19C5.52 20.26 4.94 20.24 4.45 20.18C3.1 20.04 2.38 19.14 2.14 17.45C2.04 16.73 2 15.89 2 14.92V9.08C2 8.11 2.04 7.27 2.14 6.55C2.38 4.86 3.1 3.96 4.45 3.82C4.94 3.76 5.52 3.74 6.19 3.74H17.81C18.48 3.74 19.06 3.76 19.55 3.82C20.9 3.96 21.62 4.86 21.86 6.55C21.96 7.27 22 8.11 22 9.08Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 15L8 9H16L12 15Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <strong>{t['info.address.label']}:</strong>
-          </span>
-          <span>
-              
-          </span>
-        </p>
-         -->
+          </div>
+        </div>
       </div>
       <div class="map-container">
         <iframe
@@ -101,135 +71,224 @@ const t = translations[lang as SupportedLanguages];
     min-width: 100%;
     min-height: 100vh;
     overflow: hidden;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.01);
   }
 
   h2 {
     font-size: 3rem;
-    margin-top: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
     color: var(--secondary-color);
     text-align: center;
+    font-weight: 400;
+    letter-spacing: 1px;
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
   }
 
-  span {
-    white-space: pre-wrap;
+  h3 {
+    font-size: 1.2rem;
+    margin: 0 0 0.6rem 0;
+    color: var(--secondary-color);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.85;
   }
 
   .info-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 4rem;
     max-width: 1200px;
     width: 100%;
-    vertical-align: baseline;
+    align-items: center;
   }
 
   .info-text {
-    padding: 2rem;
-    vertical-align: baseline;
-  }
-
-  .info-text p {
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1.2rem;
-    align-items: start;
-  }
-
-  .info-text p span .tooltip {
     display: flex;
-    justify-content: right;
+    flex-direction: column;
+    gap: 3rem;
   }
 
-  .info-data {
+  .info-item {
     display: flex;
-    justify-content: right;
+    align-items: flex-start;
+    gap: 1rem;
+    position: relative;
+    transition: transform 0.3s ease;
   }
 
-  .time {
-    padding-right: 10px;
+  .info-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 70px;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--primary-color) 5%, transparent);
+    opacity: 0.2;
   }
 
-  .icon-label {
+  .info-item:hover {
+    transform: translateX(5px);
+  }
+
+  .info-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     display: flex;
-    align-items: flex-start; 
-    gap: 0.75rem;
-  }
-
-  .icon {
-    display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary-color);
-    width: 24px;
-    height: 24px;
     flex-shrink: 0;
-    opacity: 0.9;
+    position: relative;
+    background: transparent;
+    border: 1px solid rgba(var(--primary-color-rgb), 0.15);
   }
 
-  .icon svg {
-    width: 22px;
-    height: 22px;
-    stroke-width: 1.2;
+  .info-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(var(--primary-color-rgb), 0.05) 0%, transparent 70%);
   }
 
-  strong {
-    color: var(--secondary-color);
+  .icon-content {
+    font-size: 1.8rem;
+    position: relative;
+    z-index: 2;
   }
 
-  .map-container {
-    height: 300px;
-    border-radius: 10px;
-    overflow: hidden;
+  .info-content {
+    flex: 1;
+    padding-top: 0.3rem;
   }
 
-  .calendar-link, .maps-link {
-    display: inline-flex;
-    align-items: center;
-    color: inherit;
+  .info-link, .info-value {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    display: inline-block;
+    font-weight: 400;
+    color: var(--text-color);
+  }
+
+  .info-link {
     text-decoration: none;
-    transition: color 0.2s;
+    position: relative;
+    transition: all 0.3s ease;
   }
 
-  .calendar-link:hover, .maps-link:hover {
+  .link-content {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .info-link:hover .link-content {
     color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
   }
 
   .tooltip {
-    font-size: 0.7rem;
+    display: block;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    opacity: 0.7;
+    font-weight: normal;
+    margin-top: 0.5rem;
+    font-style: italic;
+    transition: all 0.3s ease;
+  }
+
+  .info-link:hover .tooltip {
+    opacity: 1;
+    transform: translateX(5px);
+  }
+
+  .map-container {
+    height: 380px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 
+      0 15px 35px rgba(0, 0, 0, 0.1),
+      0 3px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .map-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    z-index: 1;
   }
 
   @media (max-width: 768px) {
-    .map-container {
-      display: none;
+    .section-location {
+      padding: 3rem 1rem;
+      height: auto;
     }
 
     .info-container {
       grid-template-columns: 1fr;
+      gap: 3rem;
     }
 
     h2 {
-      font-size: 2rem;
+      font-size: 2.2rem;
+      margin-bottom: 3rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+    }
+
+    .info-item {
+      gap: 0.8rem;
+    }
+
+    .info-icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    .icon-content {
+      font-size: 1.4rem;
+    }
+
+    .info-link, .info-value {
+      font-size: 1.2rem;
+    }
+
+    .map-container {
+      display: none;
+      height: 280px;
+      margin-top: 1rem;
     }
 
     .info-text {
-      padding: 0.5rem;
-    }
-
-    .info-text p {
-      margin-bottom: 1rem;
-      font-size: 1rem;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      align-items: start;
-      padding-bottom: 1rem;      
+      gap: 1rem;
     }
     
-    .info-text p span .tooltip {
-      display: flex;
-      justify-content: right;
+    .info-item:not(:last-child)::after {
+      left: 60px;
     }
   }
 </style>

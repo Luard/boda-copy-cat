@@ -5,23 +5,38 @@ const { currentLang } = Astro.props;
 ---
 
 <div class="language-selector">
-  {Object.entries(languages).map(([lang, label]) => {
-    // Construir la URL correctamente
-    const href = lang === 'es' ? '/' : `/${lang}`;
-    
-    return (
-      <a 
-        href={href}
-        class={`lang-link ${currentLang === lang ? 'active' : ''}`}
-        data-lang={lang}
-      >
-        {label}
-      </a>
-    );
-  })}
+    <button id="lang-toggle" class="lang-toggle" aria-label="Toggle lang">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="icon">🌐</span>
+    </button>
+  <div class="languages hidden" id="languages">
+    {Object.entries(languages).map(([lang, label]) => {
+      // Construir la URL correctamente
+      const href = lang === 'es' ? '/' : `/${lang}`;
+      
+      return (
+        <a 
+          href={href}
+          class={`lang-link ${currentLang === lang ? 'active' : ''}`}
+          data-lang={lang}
+        >
+          {label}
+        </a>
+      );
+    })}
+  </div>
 </div>
 
 <script>
+  const langToggle = document.getElementById('lang-toggle');
+  const languages = document.getElementById('languages');
+  langToggle?.addEventListener('click', () => {
+    langToggle.classList.toggle('active');
+    languages?.classList.toggle('hidden');
+  });
+
   // Script para preservar el hash al cambiar de idioma
   document.addEventListener('DOMContentLoaded', () => {
     const langLinks = document.querySelectorAll('.lang-link');
@@ -47,12 +62,76 @@ const { currentLang } = Astro.props;
 
 <style>
   .language-selector {
+    z-index: 99999;
     position: fixed;
-    top: 0.5rem;
+    bottom: 0.5rem;
     right: 1rem;
-    z-index: 1000;
     display: flex;
-    gap: 1rem;
+    gap: 0.1rem;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 0.3rem;
+    border-radius: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: bottom 0.3s ease;
+  }
+
+  .languages {
+    
+  }
+
+  .languages.hidden {
+    visibility: hidden;
+  }
+
+  .lang-toggle {
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+  }
+  .lang-toggle.hidden {
+    oppacity: 0;
+  }
+  .lang-toggle:hover {
+  }
+
+  .lang-toggle .bar {
+    display: none;
+    width: 24px;
+    height: 2px;
+    background-color: var(--secondary-color);
+    transition: all 0.3s ease;
+  }
+
+  .lang-toggle.active .icon {
+    display: none;
+  }
+
+  .lang-toggle.active .bar:nth-child(1) {
+    display: inline;
+    transform: translateY(8px) rotate(45deg);
+  }
+
+
+  .lang-toggle.active .bar:nth-child(2) {
+    display: inline;
+    opacity: 0;
+  }
+
+  .lang-toggle.active .bar:nth-child(3) {
+    display: inline;
+    transform: translateY(-8px) rotate(-45deg);
   }
 
   .lang-link {
@@ -76,17 +155,15 @@ const { currentLang } = Astro.props;
   @media (max-width: 768px) {
     .language-selector {
       position: fixed;
-      top: auto;
-      bottom: 4rem;
-      right: 1rem;
       background-color: rgba(255, 255, 255, 0.9);
       padding: 0.3rem;
       border-radius: 25px;
-      backdrop-filter: blur(5px);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: bottom 0.3s ease;
     }
 
     .lang-link {
-      padding: 0.4rem 0.8rem;
+      padding: 0.5rem 0.5rem;
       font-size: 0.9rem;
       background-color: transparent;
       box-shadow: none;
